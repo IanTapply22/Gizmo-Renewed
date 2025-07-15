@@ -1,7 +1,7 @@
-package net.jeqo.gizmo.listeners;
+package com.iantapply.gizmo.listeners;
 
-import net.jeqo.gizmo.Gizmo;
-import net.jeqo.gizmo.data.Utilities;
+import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.data.Utilities;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,9 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import java.util.Objects;
 
-import static net.jeqo.gizmo.data.Placeholders.screenTitle;
-import static net.jeqo.gizmo.data.Placeholders.screenTitleFirstJoin;
-import static net.jeqo.gizmo.listeners.PlayerScreening.saveInv;
+import static com.iantapply.gizmo.data.Placeholders.screenTitle;
+import static com.iantapply.gizmo.data.Placeholders.screenTitleFirstJoin;
+import static com.iantapply.gizmo.listeners.PlayerScreening.saveInv;
 
 public class ScreenHandlers implements Listener {
 
@@ -70,12 +70,9 @@ public class ScreenHandlers implements Listener {
     public void restoreInv(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         if (e.getView().getTitle().equals(screenTitle()) || e.getView().getTitle().equals(screenTitleFirstJoin())) {
-            p.getInventory().setContents((ItemStack[]) saveInv.get(p.getName()));
+            p.getInventory().setContents(saveInv.get(p.getUniqueId()));
         }
     }
-
-
-
 
 
     // Disable all potion effects

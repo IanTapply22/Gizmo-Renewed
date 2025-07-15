@@ -1,8 +1,10 @@
-package net.jeqo.gizmo.listeners;
+package com.iantapply.gizmo.listeners;
 
-import net.jeqo.gizmo.Gizmo;
-import net.jeqo.gizmo.data.Placeholders;
-import net.jeqo.gizmo.data.Utilities;
+import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.data.Placeholders;
+import com.iantapply.gizmo.data.Utilities;
+import com.iantapply.gizmo.logger.Logger;
+import com.iantapply.gizmo.logger.LoggingLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 
-import static net.jeqo.gizmo.data.Placeholders.screenTitle;
+import static com.iantapply.gizmo.data.Placeholders.screenTitle;
 
 public class ClickableItems implements Listener {
 
@@ -29,14 +31,14 @@ public class ClickableItems implements Listener {
             ItemStack clickedItem = e.getCurrentItem();
             int rawSlot = e.getRawSlot();
 
-            if (plugin.getScreensConfig().getConfigurationSection("Items") != null) {
-                for (String key : Objects.requireNonNull(plugin.getScreensConfig().getConfigurationSection("Items")).getKeys(false)) {
-                    if (plugin.getScreensConfig().getInt("Items." + key + ".slot") == rawSlot) {
-                        if (plugin.getScreensConfig().getString("Items." + key + ".commands") != null) {
-                            if (plugin.getScreensConfig().getString("Items." + key + ".close-on-click").equals("true")) {
+            if (Gizmo.getInstance().getScreensConfigurationCore().getSectionKeys("Items") != null) {
+                for (String key : Objects.requireNonNull(Gizmo.getInstance().getScreensConfigurationCore().getSectionKeys("Items"))) {
+                    if (Gizmo.getInstance().getScreensConfigurationCore().getInteger("Items." + key + ".slot") == rawSlot) {
+                        if (Gizmo.getInstance().getScreensConfigurationCore().getString("Items." + key + ".commands") != null) {
+                            if (Gizmo.getInstance().getScreensConfigurationCore().getString("Items." + key + ".close-on-click").equals("true")) {
                                 p.closeInventory();
                             }
-                            for (String command : plugin.getScreensConfig().getStringList("Items." + key + ".commands")) {
+                            for (String command : Gizmo.getInstance().getScreensConfigurationCore().getStringList("Items." + key + ".commands")) {
                                 if (command.contains("[console]")) {
                                     command = command.replace("[console] ", "");
                                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", p.getName()));
@@ -48,7 +50,7 @@ public class ClickableItems implements Listener {
                                     p.performCommand(command);
                                 } else {
                                     p.sendMessage(Placeholders.gizmoPrefix() + "An error occurred. Please review the console for more information.");
-                                    Utilities.warn("\"" + key + "\"" + " (screens.yml) has a command with an invalid format.");
+                                    Logger.log(LoggingLevel.ERROR, "\"" + key + "\"" + " (screens.yml) has a command with an invalid format.");
                                 }
                             }
 
