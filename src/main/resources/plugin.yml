@@ -1,12 +1,11 @@
 name: 'GizmoRenewed'
 version: '${project.version}'
-main: com.iantapply.gizmo.Gizmo
+main: com.iantapply.gizmo.GizmoRenewed
 api-version: 1.21
 prefix: GizmoRenewed
-authors: [Gucci Fox, Jeqo]
+authors: [GucciFox, Jeqo]
 description: A unique utility plugin.
-softdepend:
-  - PlaceholderAPI
+softdepend: [PlaceholderAPI]
 commands:
   gizmo:
     aliases: g

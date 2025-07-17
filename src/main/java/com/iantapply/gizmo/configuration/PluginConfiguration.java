@@ -4,9 +4,13 @@ public class PluginConfiguration {
     public static final String NAME = "GizmoRenewed";
     public static final String VERSION = "3.0.0";
     public static final String DEVELOPER_CREDITS = "GucciFox";
+    @Deprecated
     public static final String DESCRIPTION = "";
-    public static final String MAIN_CONFIG_FILE = "config.yml";
     public static final String PLUGIN_DOWNLOAD_PAGE = "";
+
+    public static final String PLUGIN_CONFIG_FILE = "config.yml";
+    public static final String MESSAGES_CONFIG_FILE = "messages.yml";
+    public static final String SCREENS_CONFIG_FILE = "screens.yml";
 
     public static final int BSTATS_PLUGIN_ID = 26513;
     public static final int SPIGOTMC_PLUGIN_ID = 0;
@@ -18,7 +22,6 @@ public class PluginConfiguration {
     public static boolean isRunningPaper() {
         boolean isPaper = false;
         try {
-            // Any other works, just the shortest I could find.
             Class.forName("com.destroystokyo.paper.ParticleBuilder");
             isPaper = true;
         } catch (ClassNotFoundException ignored) {}

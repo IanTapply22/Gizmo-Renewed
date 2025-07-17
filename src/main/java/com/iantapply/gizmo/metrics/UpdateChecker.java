@@ -1,35 +1,22 @@
 package com.iantapply.gizmo.metrics;
 
-import com.iantapply.gizmo.Gizmo;
-import com.iantapply.gizmo.configuration.PluginConfiguration;
-import com.iantapply.gizmo.data.Utilities;
+import com.iantapply.gizmo.GizmoRenewed;
 import com.iantapply.gizmo.logger.Logger;
 import com.iantapply.gizmo.logger.LoggingLevel;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Scanner;
 import java.util.function.Consumer;
-
-import static com.iantapply.gizmo.data.Placeholders.gizmoPrefix;
 
 /**
  *                      A utility class intended to check for updates on the SpigotMC website
  * @param plugin        The plugin instance, type org.bukkit.plugin.java.JavaPlugin
  * @param resourceId    The resource ID of the plugin on SpigotMC, type int
  */
-public record UpdateChecker(Gizmo plugin, int resourceId) {
+public record UpdateChecker(GizmoRenewed plugin, int resourceId) {
 
     /**
      *                  Gets the latest version of the plugin available on SpigotMC
@@ -56,8 +43,8 @@ public record UpdateChecker(Gizmo plugin, int resourceId) {
      * Not planned to change
      */
     public void check() {
-        new UpdateChecker(Gizmo.getInstance(), resourceId).getVersion(version -> {
-            String currentVersion = Gizmo.getInstance().getDescription().getVersion();
+        new UpdateChecker(GizmoRenewed.getInstance(), resourceId).getVersion(version -> {
+            String currentVersion = GizmoRenewed.getInstance().getDescription().getVersion();
 
             if (VersionChecker.isVersionLower(currentVersion, version)) {
                 Logger.logUpdateNotificationConsole();

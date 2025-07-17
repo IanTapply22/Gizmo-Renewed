@@ -1,9 +1,10 @@
 package com.iantapply.gizmo.command.commands;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 import com.iantapply.gizmo.command.CommandPermission;
 import com.iantapply.gizmo.command.GizmoCommand;
-import com.iantapply.gizmo.listeners.PlayerScreening;
+import com.iantapply.gizmo.data.ChatTranslate;
+import com.iantapply.gizmo.listener.ScreenDisplayHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 import static com.iantapply.gizmo.data.Placeholders.gizmoPrefix;
-import static com.iantapply.gizmo.data.Utilities.chatTranslate;
 
 public class ShowCommand extends GizmoCommand {
 
@@ -60,7 +60,7 @@ public class ShowCommand extends GizmoCommand {
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            PlayerScreening.welcomeScreen(player);
+            ScreenDisplayHandler.showWelcomeScreen(player);
         } else {
             Player target = Bukkit.getPlayer(args[0]);
 
@@ -69,8 +69,10 @@ public class ShowCommand extends GizmoCommand {
                 return;
             }
 
-            player.sendMessage(chatTranslate(gizmoPrefix() + Gizmo.getInstance().getMessagesConfigurationCore().getString("show-screen-others")));
-            PlayerScreening.welcomeScreen(target);
+            String rawMessage = GizmoRenewed.getInstance().getMessagesConfigurationCore().getString("show-screen-others");
+            rawMessage = rawMessage.replace("%player_name%", target.getName());
+            player.sendMessage(ChatTranslate.translate(player, gizmoPrefix() + rawMessage));
+            ScreenDisplayHandler.showWelcomeScreen(target);
         }
     }
 }

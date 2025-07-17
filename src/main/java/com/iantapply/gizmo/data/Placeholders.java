@@ -1,6 +1,6 @@
 package com.iantapply.gizmo.data;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 import org.bukkit.ChatColor;
 
 public class Placeholders {
@@ -14,24 +14,23 @@ public class Placeholders {
 
 
     public static String shift48() {
-        return Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-48");
+        return GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-48");
     }
     public static String shift1013() {
-        return Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-1013");
+        return GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-1013");
     }
     public static String shift1536() {
-        return Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-1536");
+        return GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.shift-1536");
     }
-
 
     public static String screenTitle() {
-        return Gizmo.getInstance().getConfigConfigurationCore().getString("background-color") +
-                shift1013() + Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.background") +
-                shift1536() + ChatColor.WHITE + Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.welcome-screen");
+        return GizmoRenewed.getInstance().getConfigConfigurationCore().getString("background-color") +
+                shift1013() + GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.background") +
+                shift1536() + ChatColor.WHITE + GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.welcome-screen");
     }
     public static String screenTitleFirstJoin() {
-        return Gizmo.getInstance().getConfigConfigurationCore().getString("background-color") +
-                shift1013() + Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.first-join-background") +
-                shift1536() + ChatColor.WHITE + Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.first-join-welcome-screen");
+        return GizmoRenewed.getInstance().getConfigConfigurationCore().getString("background-color") +
+                shift1013() + GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.first-join-background") +
+                shift1536() + ChatColor.WHITE + GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.first-join-welcome-screen");
     }
 }

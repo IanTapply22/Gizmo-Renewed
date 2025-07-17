@@ -1,8 +1,9 @@
 package com.iantapply.gizmo.command.commands;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 import com.iantapply.gizmo.command.CommandPermission;
 import com.iantapply.gizmo.command.GizmoCommand;
+import com.iantapply.gizmo.data.ChatTranslate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,7 +11,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 import static com.iantapply.gizmo.data.Placeholders.gizmoPrefix;
-import static com.iantapply.gizmo.data.Utilities.chatTranslate;
 
 public class FadeCommand extends GizmoCommand {
 
@@ -60,7 +60,7 @@ public class FadeCommand extends GizmoCommand {
         if (args.length == 4) {
             Player target = Bukkit.getPlayer(args[3]);
             if (target == null) {
-                sender.sendMessage(chatTranslate(gizmoPrefix() + "&7That player is not online!"));
+                sender.sendMessage(ChatTranslate.translate(null, gizmoPrefix() + "&7That player is not online!"));
                 return;
             }
             checkRegex(sender, args, target);
@@ -71,9 +71,9 @@ public class FadeCommand extends GizmoCommand {
 
     private void checkRegex(CommandSender sender, String[] args, Player target) {
         if (args[0].matches("[0-9]+") && args[1].matches("[0-9]+") && args[2].matches("[0-9]+")) {
-            target.sendTitle(Gizmo.getInstance().getScreensConfigurationCore().getString("Unicodes.background"), "", Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            target.sendTitle(GizmoRenewed.getInstance().getScreensConfigurationCore().getString("Unicodes.background"), "", Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
         } else {
-            sender.sendMessage(chatTranslate(gizmoPrefix() + "&7Only numbers can be used for time values!"));
+            sender.sendMessage(ChatTranslate.translate(null, gizmoPrefix() + "&7Only numbers can be used for time values!"));
         }
     }
 }

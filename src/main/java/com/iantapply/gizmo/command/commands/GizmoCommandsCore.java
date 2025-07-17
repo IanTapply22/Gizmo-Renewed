@@ -1,6 +1,6 @@
 package com.iantapply.gizmo.command.commands;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 
 /**
  * Handles all Gizmo related subcommands
@@ -8,6 +8,6 @@ import com.iantapply.gizmo.Gizmo;
 public class GizmoCommandsCore {
 
     public void initialize() {
-        Gizmo.getInstance().getCommandCore().stageCommand(new GizmoSubcommand());
+        GizmoRenewed.getInstance().getCommandCore().stageCommand(new GizmoSubcommand());
     }
 }

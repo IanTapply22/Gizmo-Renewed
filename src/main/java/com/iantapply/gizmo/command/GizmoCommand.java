@@ -1,6 +1,6 @@
 package com.iantapply.gizmo.command;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 import com.iantapply.gizmo.logger.Logger;
 import com.iantapply.gizmo.logger.LoggingLevel;
 import org.bukkit.command.CommandSender;
@@ -18,7 +18,7 @@ public abstract class GizmoCommand {
      * The instance of the Gizmo plugin. Used for configurations or to comply with registries
      * @return The instance of the Gizmo plugin
      */
-    public final Gizmo plugin() { return Gizmo.getInstance(); }
+    public final GizmoRenewed plugin() { return GizmoRenewed.getInstance(); }
 
     /**
      * The name that is appended after the leading '/' character

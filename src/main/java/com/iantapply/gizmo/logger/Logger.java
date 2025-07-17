@@ -1,8 +1,6 @@
 package com.iantapply.gizmo.logger;
 
-import com.iantapply.gizmo.Gizmo;
 import com.iantapply.gizmo.configuration.PluginConfiguration;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 

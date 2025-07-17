@@ -1,7 +1,7 @@
 package com.iantapply.gizmo.configuration;
 
-import com.iantapply.gizmo.Gizmo;
-import com.iantapply.gizmo.data.Utilities;
+import com.iantapply.gizmo.GizmoRenewed;
+import com.iantapply.gizmo.data.ChatTranslate;
 import com.iantapply.gizmo.logger.Logger;
 import com.iantapply.gizmo.logger.LoggingLevel;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.Arrays;
@@ -24,11 +25,11 @@ import java.util.stream.Collectors;
 @Getter
 public class ConfigurationCore {
 
-    private final Gizmo plugin;
+    private final GizmoRenewed plugin;
     private FileConfiguration configuration;
     private final File configFile;
 
-    public ConfigurationCore(Gizmo plugin, String configFileName) {
+    public ConfigurationCore(GizmoRenewed plugin, String configFileName) {
         this.plugin = plugin;
         this.configFile = new File(plugin.getDataFolder(), configFileName);
 
@@ -101,25 +102,27 @@ public class ConfigurationCore {
      */
     public String getString(String path) {
         if (!configuration.contains(path)) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
             return null;
         }
 
         if (configuration.getString(path) == null) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", this.configFile.getName(), path));
             return null;
         }
 
-        return Utilities.chatTranslate(configuration.getString(path));
+        return ChatTranslate.translate(null, configuration.getString(path));
     }
 
     public List<String> getStringList(String path) {
         if (!configuration.contains(path)) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
             return null;
         }
 
-        return configuration.getStringList(path).stream().map(Utilities::chatTranslate).collect(Collectors.toList());
+        return configuration.getStringList(path).stream()
+                .map(s -> ChatTranslate.translate(null, s))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -154,12 +157,12 @@ public class ConfigurationCore {
      */
     public int getInteger(String path) {
         if (!configuration.contains(path)) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
             return -1;
         }
 
         if (configuration.getInt(path) == -1) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", this.configFile.getName(), path));
             return -1;
         }
 
@@ -173,12 +176,12 @@ public class ConfigurationCore {
      */
     public boolean getBoolean(String path) {
         if (!configuration.contains(path)) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
             return false;
         }
 
         if (configuration.get(path) == null) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", this.configFile.getName(), path));
             return false;
         }
 
@@ -192,15 +195,34 @@ public class ConfigurationCore {
      */
     public double getDouble(String path) {
         if (!configuration.contains(path)) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
             return -1.0;
         }
 
         if (configuration.getDouble(path) == -1) {
-            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", PluginConfiguration.MAIN_CONFIG_FILE, path));
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", this.configFile.getName(), path));
             return -1.0;
         }
 
         return configuration.getDouble(path);
+    }
+
+    public boolean contains(String path) {
+        return configuration.contains(path);
+    }
+
+    public ItemStack getItemStack(String path) {
+        if (!configuration.contains(path)) {
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s does not exist in %s. Please add the path if needed.", this.configFile.getName(), path));
+            return null;
+        }
+
+        ItemStack item = configuration.getItemStack(path);
+        if (item == null) {
+            Logger.log(LoggingLevel.WARNING, String.format("Configuration %s is null in %s. Please set the value.", this.configFile.getName(), path));
+            return null;
+        }
+
+        return item;
     }
 }

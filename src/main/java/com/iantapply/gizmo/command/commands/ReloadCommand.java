@@ -1,6 +1,6 @@
 package com.iantapply.gizmo.command.commands;
 
-import com.iantapply.gizmo.Gizmo;
+import com.iantapply.gizmo.GizmoRenewed;
 import com.iantapply.gizmo.command.CommandPermission;
 import com.iantapply.gizmo.command.GizmoCommand;
 import org.bukkit.ChatColor;
@@ -61,9 +61,9 @@ public class ReloadCommand extends GizmoCommand {
     public void execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
         player.sendMessage(ChatColor.GREEN + "Reloading Gizmo configs...");
-        Gizmo.getInstance().getConfigConfigurationCore().reload();
-        Gizmo.getInstance().getMessagesConfigurationCore().reload();
-        Gizmo.getInstance().getScreensConfigurationCore().reload();
+        GizmoRenewed.getInstance().getConfigConfigurationCore().reload();
+        GizmoRenewed.getInstance().getMessagesConfigurationCore().reload();
+        GizmoRenewed.getInstance().getScreensConfigurationCore().reload();
 
         player.sendMessage(ChatColor.GREEN + "Reloaded Gizmo configs.");
     }
